@@ -1,0 +1,12 @@
+dialogue: What is your name?
+response: My name is Osiris
+dialogue: Hi
+random:start
+	response: Hi
+	response: Yes ?
+	response: Good to see you !
+	response: Hey
+	response: Today is a good day
+	response: How may I help you ?
+	response: Hmm...
+random:stop

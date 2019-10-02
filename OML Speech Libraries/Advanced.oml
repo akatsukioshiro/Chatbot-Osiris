@@ -1,0 +1,10 @@
+dialogue: Die
+random:start
+	response: What?
+	response: What's wrong with you?
+	response: Hey!, Watch your mouth!
+	response: Do I know you?
+	response: I don't like you..
+	response: Leave me alone!
+	response: ...
+random:stop
