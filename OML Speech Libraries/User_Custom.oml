@@ -13,3 +13,6 @@ dialogue: Who is Charles ?
 response: Google it
 dialogue: What is Yahoo ?
 response: Search Online
+
+dialogue: Hey
+response: Hey
