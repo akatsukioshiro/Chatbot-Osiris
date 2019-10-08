@@ -1,5 +1,7 @@
 #!"python.exe"
 import random
+from gtts import gTTS
+import os
 
 #------------------------------- Set Library List and OML File Paths --------------------------------#
 oslibli="Osiris Library List\\" # ( import List of OML Libraries Path )
@@ -39,6 +41,14 @@ def reset():
 reset()	
 ###################################### DON'T EDIT THESE EVER #########################################
 
+def speech(text):
+	mytext = text
+	language = 'en'
+	myobj = gTTS(text=mytext, lang=language, slow=False) 
+	myobj.save("osiris.mp3") 
+	os.system("mpg123 osiris.mp3") 
+
+
 state="0"
 
 def type1(sen):
@@ -57,6 +67,9 @@ def type1(sen):
 				state="2"
 			elif(sen[len(sen)-1]=="me" and state=="1"):
 				sen[len(sen)-1]="you"
+				state="2"
+			elif(sen[len(sen)-1]=="something" and state=="1"):
+				sen[len(sen)-1]="anything"
 				state="2"
 			x=""
 			x=x+sen[1]+" "+sen[0]
@@ -96,7 +109,7 @@ def type1(sen):
 
 def type2(sen):
 	global state
-	if(sen[0]=="am" or sen[0]=="are" or sen[0]=="is" or sen[0]=="has" or sen[0]=="has" or sen[0]=="have" or sen[0]=="will" or sen[0]=="would" or sen[0]=="shall" or sen[0]=="should"):
+	if(sen[0]=="am" or sen[0]=="are" or sen[0]=="is" or sen[0]=="has" or sen[0]=="have" or sen[0]=="will" or sen[0]=="would" or sen[0]=="shall" or sen[0]=="should"):
 		if(sen[1]=="i" or sen[1]=="it" or sen[1]=="we" or sen[1]=="he" or sen[1]=="she" or sen[1]=="they" or sen[1]=="you" ):
 			if(sen[1]=="i" and sen[0]=="am" and state=="0"):
 				sen[1]="you"
@@ -118,6 +131,9 @@ def type2(sen):
 				state="2"
 			elif(sen[len(sen)-1]=="me" and state=="1"):
 				sen[len(sen)-1]="you"
+				state="2"
+			elif(sen[len(sen)-1]=="something" and state=="1"):
+				sen[len(sen)-1]="anything"
 				state="2"
 			x=""
 			x=x+sen[1]+" "+sen[0]
@@ -222,6 +238,7 @@ def main(sub_imports,ask):
 			exists="1"
 			if(commands[index+1].split(":")[0].strip()=="response"):
 				print(commands[index+1].split(":")[1].strip())
+				speech(commands[index+1].split(":")[1].strip())
 				break
 			elif(commands[index+1].split(":")[0].strip()=="random" and commands[index+1].split(":")[1].strip()=="start"):
 				randvalues=[]
@@ -230,8 +247,9 @@ def main(sub_imports,ask):
 						randvalues.append(commands[subindex].strip())
 					elif(commands[subindex].strip().split(":")[0].strip()=="random" and commands[subindex].strip().split(":")[1].strip()=="stop"):
 						break
-				print(randvalues[random.randrange(0, len(randvalues), 1)].split(":")[1].strip())
-		
+				randdata=randvalues[random.randrange(0, len(randvalues), 1)].split(":")[1].strip()
+				print(randdata)
+				speech(randdata)
 		if(ask.strip().lower()=="exit"):
 			stateX="0"
 			break
@@ -278,6 +296,7 @@ def main(sub_imports,ask):
 		for ch in choice_arr:
 			if(ch!="None"):
 				print(ch)
+				speech(ch)
 				gram_escape="1"
 				break
 				
@@ -293,6 +312,7 @@ def main(sub_imports,ask):
 
 
 while stateX=="1":
+	#os.remove("osiris.mp3")
 	ask = input("Say Something: ")
 	if(ask.strip().lower()!="no"):
 		prev_ask=ask
